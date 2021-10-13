@@ -1,6 +1,9 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 import uuid
 
+
+USER = get_user_model()
 
 
 class CaseIOTBase(models.Model):
@@ -33,4 +36,4 @@ class IOTEvent(CaseIOTBase):
     status = models.CharField(choices=EVENT_STATUS_CHOICES, default=UNDEFINED,
                               max_length=20)
     value = models.SmallIntegerField()
-
+    user = models.ForeignKey(USER, on_delete=models.PROTECT)
