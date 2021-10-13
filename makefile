@@ -16,6 +16,10 @@ stop:
 	EXTRA="stop $(service)" \
 	make run-on-docker
 
+volumes-prune:
+	EXTRA="down --volumes" \
+	make run-on-docker
+
 migrate:
 	EXTRA="run --rm --entrypoint="" web python manage.py migrate" \
 	make run-on-docker
