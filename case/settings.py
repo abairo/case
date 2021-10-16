@@ -146,3 +146,10 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': config('ROTATE_REFRESH_TOKENS', cast=bool),
     'BLACKLIST_AFTER_ROTATION': config('BLACKLIST_AFTER_ROTATION', cast=bool),
 }
+
+# MQTT Configuration
+MQTT_BROKER = config('MQTT_BROKER')
+MQTT_PORT = config('MQTT_PORT', cast=int)
+MQTT_USER = config('MQTT_USER')
+MQTT_PASSWORD = config('MQTT_PASSWORD')
+MQTT_CLIENT = config('MQTT_CLIENT')
