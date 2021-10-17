@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
+import django_heroku
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
@@ -133,6 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -153,3 +156,6 @@ MQTT_PORT = config('MQTT_PORT', cast=int)
 MQTT_USER = config('MQTT_USER')
 MQTT_PASSWORD = config('MQTT_PASSWORD')
 MQTT_CLIENT = config('MQTT_CLIENT')
+
+
+django_heroku.settings(locals())
