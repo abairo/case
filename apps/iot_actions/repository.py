@@ -1,28 +1,19 @@
 from paho.mqtt import client as paho
+from django.conf import settings
 
 
 class MQTTBroker():
 
-    __slots__ = ('_broker', '_port', '_user',
-                 '_password', '_client_name',)
-
-    def __init__(self, broker, port, user, password, client):
-        self._broker = broker
-        self._port = port
-        self._user = user
-        self._password = password
-        self._client_name = client
+    __slots__ = ()
 
     def publish_message(self, topic, message):
-        try:
-            client1= paho.Client(self._client_name)
-            client1.on_publish = lambda x, y, z: (x, y, z)
-            client1.username_pw_set(username=self._user, password=self._password)
-            client1.connect(self._broker, self._port, 60)
-            ret = client1.publish(topic, payload=message)
-        #TODO create connection class and implement context manager to close connection
-        finally:
-            client1.disconnect()
+        client = settings.MQTT
+        print(f'Conectado: {client.is_connected()}')
+        if not client.is_connected():
+            print('reconectando...')
+            client.reconnect()
+        ret = client.publish(topic, payload=message)
+        print(f'retorno: {ret}')
 
 
 if __name__ == '__main__':

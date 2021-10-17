@@ -15,6 +15,7 @@ import django_heroku
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+from apps.iot_actions.factory import mqtt_broker
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -157,5 +158,6 @@ MQTT_USER = config('MQTT_USER')
 MQTT_PASSWORD = config('MQTT_PASSWORD')
 MQTT_CLIENT = config('MQTT_CLIENT')
 
+MQTT = mqtt_broker()
 
 django_heroku.settings(locals())

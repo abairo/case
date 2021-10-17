@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import IOTAction, IOTEvent
 from .usecases import PublishTopic
-from .factory import get_mqtt_broker
+from .repository import MQTTBroker
 
 
 class IOTActionsSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class IOTEventSerializer(serializers.ModelSerializer):
         validated_data = self.validated_data
         topic = validated_data['iot_action'].topic
         value = validated_data['value']
-        usecase = PublishTopic(get_mqtt_broker())
+        usecase = PublishTopic(MQTTBroker())
 
         usecase(topic, value)
         super(IOTEventSerializer, self).save(*args, **kwargs)
