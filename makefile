@@ -63,3 +63,12 @@ shell:
 pytest:
 	EXTRA="run --rm --entrypoint="" web py.test" \
 	make run-on-docker
+
+heroku-run:
+	heroku run python manage.py $(cmd)
+
+heroku-requirements:
+	poetry export -f requirements.txt --output requirements.txt
+
+heroku-deploy: heroku-requirements
+	git push heroku master
