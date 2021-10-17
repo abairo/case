@@ -14,16 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 from apps.iot_actions.views import IOTActionViewSet, IOTEventViewSet
 
 
-router = DefaultRouter()
+router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 router.register(r'iot_actions', IOTActionViewSet)
 router.register(r'iot_events', IOTEventViewSet)
 
